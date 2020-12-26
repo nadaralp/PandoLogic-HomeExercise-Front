@@ -20,7 +20,7 @@ export class JobsStore {
     public currentSelectedJob: Nullable<JobResponseModel>;
 
     @observable
-    public relevantSearchJobs: JobResponseModel[] = [];
+    public relevantSearchJobs: Nullable<JobResponseModel[]>;
 
     @observable
     public areJobsLoading: boolean = false;
@@ -66,7 +66,8 @@ export class JobsStore {
         jobName: string
     ): Promise<JobResponseModel[]> {
         if (!this.jobTitles) throw new Error("no job titles");
-        var jobs = this.jobTitles.filter((job) => job.jobTitleName === jobName);
+
+        var jobs = this.jobTitles.filter((job) => job.jobTitleName.toLowerCase() === jobName.toLowerCase());
         if (!jobs || jobs.length === 0) {
             throw new JobNotFoundError(jobName);
         }
@@ -74,7 +75,7 @@ export class JobsStore {
         const relevantJobs = await this.GetAllJobsByJobTitleId(
             jobs[0].jobTitleId
         );
-        
+
         this.jobNotFoundJobNameAttemp = undefined;
         this.relevantSearchJobs = relevantJobs;
         this.currentSearchedJobTitle = jobName;

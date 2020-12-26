@@ -23,18 +23,25 @@ const SearchResults = (props: Props) => {
     if (JobsStore.areJobsLoading) {
         return <CircularProgress style={{ marginTop: "50px" }} />;
     }
-    
-    if (JobsStore.jobNotFoundJobNameAttemp) {
+
+    if (
+        JobsStore.jobNotFoundJobNameAttemp ||
+        (JobsStore.relevantSearchJobs &&
+            JobsStore.relevantSearchJobs.length === 0)
+    ) {
         return (
-            <Typography style={{marginTop: '4rem'}} color="error" variant="h6">
-                Not found job results for job:{" "}
-                {JobsStore.jobNotFoundJobNameAttemp}
+            <Typography
+                style={{ marginTop: "4rem" }}
+                color="error"
+                variant="h6"
+            >
+                Couldn't find any jobs for:{" "}
+                {JobsStore.jobNotFoundJobNameAttemp || JobsStore.currentSearchedJobTitle}
             </Typography>
         );
     }
 
-    if (JobsStore.relevantSearchJobs.length === 0) return <></>;
-
+    if (!JobsStore.relevantSearchJobs) return <></>;
 
     const handleJobSelect = (job: JobResponseModel) => (_) => {
         JobsStore.currentSelectedJob = job;
