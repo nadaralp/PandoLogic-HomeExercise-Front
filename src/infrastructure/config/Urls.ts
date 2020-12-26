@@ -11,17 +11,16 @@ class DevUrls implements Urls {
 }
 
 class ProdUrls implements Urls {
-  baseApiUrl: string = "??";
+  baseApiUrl: string = "http://server:5000/api";
 }
 
 export function getUrls(): Urls {
-  switch (process.env.NODE_ENV) {
-    case "development":
-      return new DevUrls();
+  switch (process.env.REACT_APP_ENV) {
     case "production":
       return new ProdUrls();
+    case "development":
     default:
-      throw new Error(`didn't find URL paths for env: ${process.env.NODE_ENV}`)
+      return new DevUrls();
       
   }
   // would implement all other environments here.
