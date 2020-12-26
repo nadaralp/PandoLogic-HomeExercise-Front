@@ -3,7 +3,7 @@ import { createMuiTheme } from "@material-ui/core";
 export const MuiDarkTheme = createMuiTheme({
     palette: {
         primary: {
-            main: "#2196f3",
+            main: "#39ace7",
             light: "#4dabf5",
             dark: "#1769aa",
         },
@@ -19,7 +19,7 @@ export const MuiDarkTheme = createMuiTheme({
     overrides: {
         MuiButton: {
             text: {
-                color: "#fff",
+                color: "#0784b5",
             },
         },
     },
@@ -28,5 +28,8 @@ export const MuiDarkTheme = createMuiTheme({
 export const MuiLightTheme = createMuiTheme({
     palette: {
         type: "light",
+        primary: {
+            main: "#06c",
+        },
     },
 });

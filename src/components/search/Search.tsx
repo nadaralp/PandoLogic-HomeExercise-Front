@@ -8,11 +8,13 @@ import { RootStoreContext } from "../../infrastructure/store/RootStoreContext";
 import { observer } from "mobx-react-lite";
 import { JobTitleResponseModel } from "../../infrastructure/models/JobTitles/JobTitleResponseModel";
 import useJobsStore from "../../infrastructure/hooks/useJobsStore";
+import { JobNotFoundError } from "../../infrastructure/errors/JobNotFoundError";
+import { JobsStore } from "../../infrastructure/store/JobsStore";
 
 interface Props {}
 
 const Search = (props: Props) => {
-    const JobsStore = useJobsStore();
+    const JobsStore: JobsStore = useJobsStore();
     const [jobTitles, setJobTitles] = useState<JobTitleResponseModel[]>();
     const [jobSearchText, setJobSearchText] = useState<string>("");
 
@@ -28,7 +30,15 @@ const Search = (props: Props) => {
     };
 
     const handleSearch = async () => {
-        await JobsStore.FilterSelectedJobAndGetJobs(jobSearchText);
+        try {
+            await JobsStore.FilterSelectedJobAndGetJobs(jobSearchText);
+        } catch (ex) {
+            if (ex instanceof JobNotFoundError) {
+                JobsStore.jobNotFoundJobNameAttemp = jobSearchText;
+            } else {
+                throw ex;
+            }
+        }
     };
 
     useEffect(() => {
@@ -39,7 +49,13 @@ const Search = (props: Props) => {
     }, []);
 
     return (
-        <Grid container spacing={2} alignItems="center" alignContent="center">
+        <Grid
+            container
+            spacing={2}
+            alignItems="center"
+            alignContent="center"
+            justify="space-between"
+        >
             <Grid item xs={10} md={8}>
                 <Autocomplete
                     {...defaultProps}

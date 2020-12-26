@@ -4,6 +4,7 @@ import { JobResponseModel } from "../models/Jobs/JobResponseModel";
 import { JobTitleResponseModel } from "../models/JobTitles/JobTitleResponseModel";
 import JobTitlesService from "../services/JobTitlesService";
 import JobsService from "../services/JobsService";
+import { JobNotFoundError } from "../errors/JobNotFoundError";
 
 export class JobsStore {
     /**
@@ -23,6 +24,9 @@ export class JobsStore {
 
     @observable
     public areJobsLoading: boolean = false;
+
+    @observable
+    public jobNotFoundJobNameAttemp: Nullable<string>;
 
     /**
      * Ctor
@@ -64,13 +68,14 @@ export class JobsStore {
         if (!this.jobTitles) throw new Error("no job titles");
         var jobs = this.jobTitles.filter((job) => job.jobTitleName === jobName);
         if (!jobs || jobs.length === 0) {
-            // set error here
-            throw new Error("no job was found for this job name");
+            throw new JobNotFoundError(jobName);
         }
 
         const relevantJobs = await this.GetAllJobsByJobTitleId(
             jobs[0].jobTitleId
         );
+        
+        this.jobNotFoundJobNameAttemp = undefined;
         this.relevantSearchJobs = relevantJobs;
         this.currentSearchedJobTitle = jobName;
         return toJS(relevantJobs);

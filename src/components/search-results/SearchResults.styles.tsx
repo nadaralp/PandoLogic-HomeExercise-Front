@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme) => ({
   resultsTitle: {
     fontSize: theme.typography.h6.fontSize,
     fontWeight: 'bold',
-    marginBottom: theme.spacing(2)
+    
   },
   resultsList: {
     height: '500px',
@@ -12,11 +12,18 @@ export const useStyles = makeStyles((theme) => ({
     overflowY: 'scroll'
   },
   resultItem: {
-    cursor: 'pointer'
+    cursor: 'pointer',
+    transition: 'all 250ms ease-in-out',
+    '&:hover': {
+      backgroundColor: 'rgba(48, 48, 48, 0.3)',
+    }
   },
   resultCaption: {
-    marginLeft: theme.spacing(2),
-    color: theme.palette.secondary.main
+    color: '#fafafa',
+    opacity: 0.7,
+    marginBottom: theme.spacing(3),
+    fontStyle: 'italic',
+    display: 'block'
 
   }
 }));

@@ -26,10 +26,10 @@ const Header = (props: Props) => {
             justifyContent="space-between"
         >
             <Box display="flex" alignItems="center">
-                <img src={pandoLogicLogo.default} alt="pando-logic" />
-                <Box marginLeft={3}>
+                <img src={pandoLogicLogo.default} alt="pando-logic" className={classes.pandoLogicLogo} />
+                <Box>
                     <Typography variant="h6" className={classes.nadarLogo}>
-                        Nadar.A
+                        NADAR.A
                     </Typography>
                 </Box>
             </Box>

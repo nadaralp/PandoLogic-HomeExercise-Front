@@ -1,4 +1,5 @@
 import {
+    Button,
     Dialog,
     DialogContent,
     DialogContentText,
@@ -31,31 +32,49 @@ const SelectedJobModal = (props: Props) => {
         >
             <DialogTitle id="alert-dialog-title">
                 Job description for job:
-                <Typography variant="inherit" color="secondary">
+                <Typography variant="inherit" color="primary">
                     {" "}
                     {JobsStore.currentSearchedJobTitle} ({selectedJob.jobId})
                 </Typography>
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="inherit" gutterBottom>
                         Location:{" "}
-                        <Typography variant="inherit">
+                        <Typography
+                            variant="h5"
+                            color="textPrimary"
+                            className={classes.informationTab}
+                        >
                             {selectedJob.city}, {selectedJob.state}
                         </Typography>
                     </Typography>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="inherit" gutterBottom>
                         Applicants:{" "}
-                        <Typography variant="inherit">
+                        <Typography
+                            variant="h5"
+                            color="textPrimary"
+                            className={classes.informationTab}
+                        >
                             {selectedJob.applicants}
                         </Typography>
                     </Typography>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="inherit" gutterBottom>
                         Clicks:{" "}
-                        <Typography variant="inherit">
+                        <Typography
+                            variant="h5"
+                            color="textPrimary"
+                            className={classes.informationTab}
+                        >
                             {selectedJob.clicks}
                         </Typography>
                     </Typography>
+
+                    <a target="_blank" href="https://www.pandologic.com/" className={classes.applyButtonLink}>
+                        <Button variant="contained" color="primary">
+                            Apply Now
+                        </Button>
+                    </a>
                 </DialogContentText>
             </DialogContent>
         </Dialog>

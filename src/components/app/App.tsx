@@ -13,7 +13,7 @@ const App = (props: Props) => {
     return (
         <Box component="main" paddingX={10}>
             <Header />
-            <Container maxWidth="md">
+            <Container maxWidth="sm">
                 <Search />
                 <SearchResults />
             </Container>

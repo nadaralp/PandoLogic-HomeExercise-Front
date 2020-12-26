@@ -23,8 +23,18 @@ const SearchResults = (props: Props) => {
     if (JobsStore.areJobsLoading) {
         return <CircularProgress style={{ marginTop: "50px" }} />;
     }
+    
+    if (JobsStore.jobNotFoundJobNameAttemp) {
+        return (
+            <Typography style={{marginTop: '4rem'}} color="error" variant="h6">
+                Not found job results for job:{" "}
+                {JobsStore.jobNotFoundJobNameAttemp}
+            </Typography>
+        );
+    }
 
     if (JobsStore.relevantSearchJobs.length === 0) return <></>;
+
 
     const handleJobSelect = (job: JobResponseModel) => (_) => {
         JobsStore.currentSelectedJob = job;
@@ -35,10 +45,13 @@ const SearchResults = (props: Props) => {
             <Box padding={2}>
                 <Typography variant="body2" className={classes.resultsTitle}>
                     The relevant jobs for{" "}
-                    <Typography variant="inherit" color="secondary">
+                    <Typography variant="inherit" color="primary">
                         {JobsStore.currentSearchedJobTitle}
                     </Typography>{" "}
                     are:
+                </Typography>
+                <Typography variant="inherit" className={classes.resultCaption}>
+                    Click on the job to get more information !
                 </Typography>
                 <div>
                     <List className={classes.resultsList}>
@@ -53,18 +66,12 @@ const SearchResults = (props: Props) => {
                                     <ListItemText>
                                         <Typography
                                             variant="caption"
-                                            color="secondary"
+                                            color="primary"
                                         >
                                             ({job.jobId}){" "}
                                         </Typography>
                                         {JobsStore.currentSearchedJobTitle} in{" "}
                                         {job.city}, {job.state}
-                                        <Typography
-                                            variant="caption"
-                                            className={classes.resultCaption}
-                                        >
-                                            (Click me to get information !)
-                                        </Typography>
                                     </ListItemText>
                                 </ListItem>
                             )
