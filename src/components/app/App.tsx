@@ -4,12 +4,12 @@ import React from "react";
 import Header from "../header/Header";
 import SearchResults from "../search-results/SearchResults";
 import Search from "../search/Search";
+import SelectedJobModal from "../selected-job-modal/SelectedJobModal";
 import { useStyles } from "./App.styles";
 
 interface Props {}
 
 const App = (props: Props) => {
-
     return (
         <Box component="main" paddingX={10}>
             <Header />
@@ -17,6 +17,7 @@ const App = (props: Props) => {
                 <Search />
                 <SearchResults />
             </Container>
+            <SelectedJobModal />
         </Box>
     );
 };

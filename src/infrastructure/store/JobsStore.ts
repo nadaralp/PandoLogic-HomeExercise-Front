@@ -16,6 +16,9 @@ export class JobsStore {
     public currentSearchedJobTitle: Nullable<string> = undefined;
 
     @observable
+    public currentSelectedJob: Nullable<JobResponseModel>;
+
+    @observable
     public relevantSearchJobs: JobResponseModel[] = [];
 
     @observable
